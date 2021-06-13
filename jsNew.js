@@ -9,14 +9,18 @@ function getItems() {
 }
 
 function activateItem(item) {
-  item.className += " active";
+  item.classList.add("active");
 }
 
 function deactivateItem(activeItem) {
-  activeItem.className = activeItem.className.replace(" active", "");
+  activeItem.classList.toggle("active", false);
 }
 
-// function to change the preview content based on current active class
+/**
+ * function to change the preview content based on current active class
+ * @param {Object} item contains the desired object for preview purpose
+ */
+
 function changePreview(item) {
   var url = item.getElementsByTagName("img")[0].src;
   var title = item.getElementsByClassName("info")[0].textContent;
@@ -26,14 +30,20 @@ function changePreview(item) {
   preview.getElementsByClassName("info")[0].innerHTML = title;
 }
 
-// function to change set from one item to other and also update the preview
+/**
+ * function to change set from one item to other and also update the preview
+ * @param {Element} currentActiveItem Element with class "item" and is currently set "active"
+ * @param {Element} toBeActiveItem Element with class "item" and is to be set "active"
+ */
 function changeActiveState(currentActiveItem, toBeActiveItem) {
   deactivateItem(currentActiveItem);
   activateItem(toBeActiveItem);
   changePreview(toBeActiveItem);
 }
 
-// function to go to next active class
+/**
+ * function to set the next item as active item
+ */
 function setNextItemActive() {
   var items = getItems();
 
@@ -47,7 +57,9 @@ function setNextItemActive() {
   changeActiveState(activeItem, nextElement);
 }
 
-// function to go to previous active class
+/**
+ * function to set the previous item as active item
+ */
 function setPrevItemActive() {
   var items = getItems();
 
@@ -73,7 +85,11 @@ document.onkeydown = function (e) {
   }
 };
 
-// function to return an Item-Element
+/**
+ *
+ * @param {Object} item object to be converted to item element
+ * @returns an individual item-Element
+ */
 function createItemElement(item) {
   var itemElement = document.createElement("div");
 
@@ -97,7 +113,7 @@ function createPreview() {
   createdNewElement.setAttribute("id", "preview");
   return createdNewElement;
 }
-
+//function which creates items div
 function createItems() {
   var items = document.createElement("div"); // holds all the items
   items.className = "items";
