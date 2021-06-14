@@ -11,7 +11,6 @@
 /* Everything related to Item */
 .item {
   display: flex;
-  justify-content: left;
   width: 300px;
   height: 60px;
   border-radius: 5px;
@@ -27,11 +26,9 @@
 }
 
 .item .info {
-  width: 230px;
-  box-sizing: border-box;
   margin-left: 5px;
+  width: 230px;
   line-height: 60px;
-  height: 60px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -68,4 +65,3 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
