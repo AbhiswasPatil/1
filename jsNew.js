@@ -22,12 +22,10 @@ function deactivateItem(activeItem) {
  */
 
 function changePreview(item) {
-  var url = item.getElementsByTagName("img")[0].src;
-  var title = item.getElementsByClassName("info")[0].textContent;
-
+  var key = parseInt(item.getAttribute("key"));
   var preview = document.getElementById("preview");
-  preview.getElementsByTagName("img")[0].src = url;
-  preview.getElementsByClassName("info")[0].innerHTML = title;
+  preview.getElementsByTagName("img")[0].src = images[key]["previewImage"];
+  preview.getElementsByClassName("info")[0].innerHTML = images[key]["title"];
 }
 
 /**
@@ -121,7 +119,7 @@ function createItems() {
   for (let indexInImages = 0; indexInImages < images.length; indexInImages++) {
     var item = createItemElement(images[indexInImages]); // item is element with className item
     item.className = "item";
-
+    item.setAttribute("key", indexInImages);
     if (indexInImages === 0) {
       activateItem(item);
     }
@@ -136,6 +134,27 @@ function createItems() {
   return items;
 }
 
+const adjustText = () => {
+  var texts = document.getElementsByClassName("info");
+  //console.log(texts);
+  [...texts].forEach((element) => {
+    if (element.scrollWidth > element.clientWidth) {
+      var textData = element.textContent;
+      //console.log(element.scrollWidth);
+      //console.log(textData);
+      var estimatedChars = Math.floor(
+        (element.clientWidth * textData.length) / element.scrollWidth
+      );
+      var estimatedLength = Math.floor(estimatedChars / 2) - 3;
+      var newTextData =
+        textData.slice(0, 0 + estimatedLength) +
+        "..." +
+        textData.slice(textData.length - 1 - estimatedLength, textData.length);
+      element.textContent = newTextData;
+    }
+  });
+};
+
 // function which initialises evrything
 function buildPage() {
   //created preview part
@@ -148,3 +167,4 @@ function buildPage() {
 }
 
 buildPage();
+adjustText();
